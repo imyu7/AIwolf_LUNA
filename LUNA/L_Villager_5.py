@@ -214,10 +214,10 @@ class VillagerBehavior(object):
         if self.day == 1:
             if self.talk_turn == 1:
                 return self.gen.generate("introduction")
-            elif self.talk_turn < 6:
+            elif self.talk_turn < 4:
                 return self.gen.generate("answer_WHO_LIKE_WOLF", [self.vote()])
-            # elif self.talk_turn < 5:
-            #     return self.gen.generate("request_VOTE", [self.vote()])
+            elif self.talk_turn < 6:
+                return self.gen.generate("request_VOTE", [self.vote()])
             else:
                 return self.gen.generate("declare_VOTE", [self.vote()])
         if self.day == 2:
