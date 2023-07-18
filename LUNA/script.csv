@@ -1,5 +1,5 @@
 type,text
-introduction,
+introduction, REQUEST ANY (COMINGOUT ANY ANY)
 tweet,
 divine_WEREWOLF,DIVINED [0] WEREWOLF
 divine_HUMAN,DIVINED [0] HUMAN
@@ -7,7 +7,8 @@ d1t1,
 d2t1,
 declare_VOTE,VOTE [0]
 ask_WHO_LIKE_WOLF,
-answer_WHO_LIKE_WOLF,ESTIMATE Agent[[1]] WEREWOLF
+answer_WHO_LIKE_WOLF,ESTIMATE [0] WEREWOLF
+request_VOTE,REQUEST ANY (VOTE [0])
 CO<3,
 CO=2,
 CO=3,
