@@ -209,8 +209,17 @@ class VillagerBehavior(object):
     def talk(self):
         self.talk_turn += 1
         self.check_alive()
-        if self.day == 1 and self.talk_turn < 7 :
-            return self.gen.generate("declare_VOTE", [self.vote()])
+        # if self.day == 1 and self.talk_turn < 7 :
+            # return self.gen.generate("declare_VOTE", [self.vote()])
+        if self.day == 1:
+            if self.talk_turn == 1:
+                return self.gen.generate("introduction")
+            elif self.talk_turn < 6:
+                return self.gen.generate("answer_WHO_LIKE_WOLF", [self.vote()])
+            # elif self.talk_turn < 5:
+            #     return self.gen.generate("request_VOTE", [self.vote()])
+            else:
+                return self.gen.generate("declare_VOTE", [self.vote()])
         if self.day == 2:
             if self.talk_turn == 1:
                 if len(self.seers&set(self.alive))>0:
