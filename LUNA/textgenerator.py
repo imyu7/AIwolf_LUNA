@@ -1,6 +1,5 @@
 import pandas as pd
 import random
-import numexpr
 
 
 class TextGenerator(object):
