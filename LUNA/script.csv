@@ -1,5 +1,5 @@
 type,text
-introduction, REQUEST ANY (COMINGOUT ANY ANY)
+introduction,REQUEST ANY (COMINGOUT ANY ANY)
 tweet,
 divine_WEREWOLF,DIVINED [0] WEREWOLF
 divine_HUMAN,DIVINED [0] HUMAN
