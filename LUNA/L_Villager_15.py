@@ -135,15 +135,30 @@ class VillagerBehavior():
         return None
 
     def talk(self):
-        if self.base_info["myRole"] == 'VILLAGER':
+        # if self.base_info["myRole"] == 'VILLAGER':
+        self.talk_turn += 1
+        if self.base_info["day"] == 1:
             if self.talk_turn == 1:
-                self.talk_turn += 1
-                return cb.comingout(self.base_info['agentIdx'], "VILLAGER")
+                return cb.request('COMINGOUT ANY ANY')
+            elif self.talk_turn < 7:
+                return cb.estimate(self.vote(), 'WEREWOLF')
             else:
-                self.talk_turn += 1
-        if self.talk_turn < 10:
-            return cb.vote(self.vote())
-        return cb.over()
+                return cb.vote(self.vote())
+        else:
+            if self.talk_turn < 4:
+                return cb.estimate(self.vote(), 'WEREWOLF')
+            elif self.talk_turn < 7:
+                return cb.request(cb.vote(self.vote()))
+            else:
+                return cb.vote(self.vote())
+        # if self.talk_turn == 1:
+        #     self.talk_turn += 1
+        #     return cb.comingout(self.base_info['agentIdx'], "VILLAGER")
+        # else:
+        #     self.talk_turn += 1
+        # if self.talk_turn < 10:
+        #     return cb.vote(self.vote())
+        # return cb.over()
 
     def whisper(self):
         return cb.over()
