@@ -14,6 +14,7 @@ class WerewolfBehavior(VillagerBehavior.VillagerBehavior):
         self.whisper_turn = 0
         self.pp_mode = 1
         self.stealth = 0
+        self.CO_mode = 0 # 1ならSEER, 2ならMEDIUM
         self.first_identify = 0
         self.shonichi_target = 0
         self.kurodashi = set()
@@ -51,9 +52,11 @@ class WerewolfBehavior(VillagerBehavior.VillagerBehavior):
                 if self.stealth == 0:
                     if self.talk_turn == 1:
                         random_seer_medium_parameter = random.randint(0, 9)
-                        if random_seer_medium_parameter % 2 == 0:
+                        # if random_seer_medium_parameter % 2 == 0:
+                        if self.CO_mode == 1:
                             CO_SEER = cb.comingout(self.base_info['agentIdx'], "SEER")
-                        else:
+                        # else:
+                        elif self.CO_mode == 2:
                             CO_SEER = cb.comingout(self.base_info['agentIdx'], "MEDIUM")
                         return CO_SEER
                     elif self.talk_turn == 2:
@@ -213,10 +216,13 @@ class WerewolfBehavior(VillagerBehavior.VillagerBehavior):
         if self.role_decision == 0:
             if self.base_info["day"] == 0:
                 if self.whisper_turn == 1:
+                    self.CO_mode = 1 # update
                     return cb.comingout(self.base_info['agentIdx'], 'SEER')
                 if self.whisper_turn == 2:
-                    if len(self.W_COs) >= 2 or len(self.W_COm) >= 1:
+                    # if len(self.W_COs) >= 2 or len(self.W_COm) >= 1:
+                    if len(self.W_COs >= 2):
                         self.stealth = 1
+                        self.CO_mode = 0 # update
                         return cb.comingout(self.base_info['agentIdx'], 'VILLAGER')
                     else:
                         return cb.skip()
@@ -226,6 +232,7 @@ class WerewolfBehavior(VillagerBehavior.VillagerBehavior):
         if self.role_decision == 1:
             if self.base_info["day"] == 0:
                 if self.whisper_turn == 1:
+                    self.CO_mode = 0 # update
                     return cb.comingout(self.base_info['agentIdx'], 'VILLAGER')
                 if self.whisper_turn >= 2:
                     return cb.skip()
@@ -233,10 +240,13 @@ class WerewolfBehavior(VillagerBehavior.VillagerBehavior):
         if self.role_decision == 2:
             if self.base_info["day"] == 0:
                 if self.whisper_turn == 1:
+                    self.CO_mode = 2 # update
                     return cb.comingout(self.base_info['agentIdx'], 'MEDIUM')
                 if self.whisper_turn == 2:
-                    if len(self.W_COm) >= 2 or len(self.W_COs) >= 1:
+                    # if len(self.W_COm) >= 2 or len(self.W_COs) >= 1:
+                    if len(self.W_COm) >= 2:
                         self.stealth = 1
+                        self.CO_mode = 0 # update
                         return cb.comingout(self.base_info['agentIdx'], 'VILLAGER')
                 if self.whisper_turn >= 3:
                     return cb.skip()
