@@ -51,7 +51,7 @@ class WerewolfBehavior(VillagerBehavior.VillagerBehavior):
             if self.base_info["day"] == 1:
                 if self.stealth == 0:
                     if self.talk_turn == 1:
-                        random_seer_medium_parameter = random.randint(0, 9)
+                        # random_seer_medium_parameter = random.randint(0, 9)
                         # if random_seer_medium_parameter % 2 == 0:
                         if self.CO_mode == 1:
                             CO_SEER = cb.comingout(self.base_info['agentIdx'], "SEER")
