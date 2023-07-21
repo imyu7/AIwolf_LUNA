@@ -36,6 +36,25 @@ class SeerBehavior(VillagerBehavior.VillagerBehavior):
 
     def talk(self):
         self.talk_turn += 1
+        if self.day == 1:
+            if self.talk_turn == 1:
+                return cb.comingout(self.base_info['agentIdx'], "SEER")
+            if self.talk_turn == 2:
+                if self.last_seer_result==0:
+                    return cb.divined(self.last_seer_target, "HUMAN")
+                else:
+                    return cb.divined(self.last_seer_target, "WEREWOLF")
+        else:
+            if self.talk_turn == 1:
+                if self.last_seer_result==0:
+                    return cb.divined(self.last_seer_target, "HUMAN")
+                else:
+                    return cb.divined(self.last_seer_target, "WEREWOLF")
+        return super().talk()
+    
+    """
+    def talk(self):
+        self.talk_turn += 1
         if self.talk_turn == 1:
             if self.last_seer_result == "HUMAN":
                 return cb.estimate(self.last_seer_target, self.last_seer_result)
@@ -47,6 +66,7 @@ class SeerBehavior(VillagerBehavior.VillagerBehavior):
             elif self.last_seer_result == "WEREWOLF":
                 return cb.divined(self.last_seer_target, self.last_seer_result)
         return super().talk()
+    """
 
     def vote(self):
         cands = self.vote_cand()

@@ -126,6 +126,7 @@ class VillagerBehavior():
 
     def dayStart(self):
         self.talk_turn = 0
+        self.day = self.base_info["day"] #高円追加
         self.todays_vote = None
         self.talk_vote_list = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         self.yesterday_vote_list = self.vote_list[:]
