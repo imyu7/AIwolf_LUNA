@@ -136,8 +136,8 @@ class VillagerBehavior():
         return None
 
     def talk(self):
-        # if self.base_info["myRole"] == 'VILLAGER':
-        self.talk_turn += 1
+        if self.base_info["myRole"] == 'VILLAGER':
+            self.talk_turn += 1
         if self.base_info["day"] == 1:
             if self.talk_turn == 1:
                 return cb.request('COMINGOUT ANY ANY')

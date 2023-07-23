@@ -42,6 +42,7 @@ class MediumBehavior(VillagerBehavior.VillagerBehavior):
         return None
 
     def talk(self):
+        self.talk_turn += 1
         if self.result_medium_new:
             who, result = self.result_medium_new.pop(0)
             result = "WEREWOLF" if result else "HUMAN"
